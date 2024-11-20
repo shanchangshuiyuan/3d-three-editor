@@ -11,6 +11,3 @@ app.use(router);
 app.use(store);
 app.use(ElementPlus);
 app.mount("#app");
-
-let a = "111";
-console.log(a);
