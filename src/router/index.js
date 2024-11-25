@@ -13,6 +13,11 @@ const routes = [
         component: () => import("@/views/modelEdit/index.vue")
       }
     ]
+  },
+  {
+    name: "runTimeView",
+    path: "/runTime",
+    component: () => import("@/views/run-time/index.vue"),
   }
 ];
 

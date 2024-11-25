@@ -1,6 +1,6 @@
-@import './global.scss';
+@use "./global.scss";
 html {
-    overflow: auto;
+  overflow: auto;
 }
 
 body,
@@ -18,38 +18,38 @@ p,
 blockquote,
 th,
 td {
-    padding: 0;
-    margin: 0;
-    font-weight: 400;
+  padding: 0;
+  margin: 0;
+  font-weight: 400;
 }
 h1,
 h2,
 h3,
 h4,
 h5 {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 select {
-    font-size: 12px;
+  font-size: 12px;
 }
 table {
-    border-collapse: collapse;
+  border-collapse: collapse;
 }
 fieldset,
 img {
-    border: 0 none;
+  border: 0 none;
 }
 fieldset {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 fieldset p {
-    padding: 0 0 0 8px;
-    margin: 0;
+  padding: 0 0 0 8px;
+  margin: 0;
 }
 legend {
-    display: none;
+  display: none;
 }
 address,
 caption,
@@ -57,33 +57,32 @@ em,
 strong,
 th,
 i {
-    font-style: normal;
-    font-weight: 400;
+  font-style: normal;
+  font-weight: 400;
 }
 table caption {
-    margin-left: -1px;
+  margin-left: -1px;
 }
 hr {
-    height: 2px;
-    margin: 5px 0;
-    overflow: hidden;
-    clear: both;
-    border-width: 1px 0;
-    border-top: 1px solid #E4E4E4;
-    border-bottom: 1px solid #FFFFFF;
+  height: 2px;
+  margin: 5px 0;
+  overflow: hidden;
+  clear: both;
+  border-width: 1px 0;
+  border-top: 1px solid #e4e4e4;
+  border-bottom: 1px solid #ffffff;
 }
 ol,
 ul {
-    list-style: none outside none;
+  list-style: none outside none;
 }
 caption,
 th {
-    text-align: left;
+  text-align: left;
 }
 q::before,
 q::after,
 blockquote::before,
 blockquote::after {
-    content: ””;
+  content: ””;
 }
-
