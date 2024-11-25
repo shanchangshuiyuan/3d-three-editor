@@ -10,7 +10,7 @@ import { useRouter } from "vue-router";
 import { ref } from "vue";
 import createThreeDComponent from "@/utils/initThreeTemplate";
 import { ElMessageBox } from "element-plus";
-import data from '../../../data.json'
+import data from "../../../data.json";
 console.log(data);
 const router = useRouter();
 const config = ref(null);

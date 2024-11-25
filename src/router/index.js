@@ -17,7 +17,7 @@ const routes = [
   {
     name: "runTimeView",
     path: "/runTime",
-    component: () => import("@/views/run-time/index.vue"),
+    component: () => import("@/views/run-time/index.vue")
   }
 ];
 
