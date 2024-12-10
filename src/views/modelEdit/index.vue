@@ -237,7 +237,7 @@ const onSaveConfig = () => {
       // 判断是否是外部模型
       if (modelConfig.fileInfo.filePath) {
         const modelBaseData = $local.get(MODEL_BASE_DATA) || [];
-        console.log(modelBaseData)
+        console.log(modelBaseData);
         const { id } = modelConfig.fileInfo;
         // 更新缓存数据
         Object.assign(modelBaseData.filter(v => id === v.fileInfo.id)[0], modelConfig);

@@ -65,7 +65,7 @@ import EditLaterStage from "./EditLaterStage.vue";
 import EditGeometry from "./EditGeometry.vue";
 import EditMoreModel from "./EditMoreModel.vue";
 import EditTags from "./EditTags.vue";
-import  data from './data.json'
+import data from "./data.json";
 import { useMeshEditStore } from "@/store/meshEditStore";
 const { $bus } = getCurrentInstance().proxy;
 

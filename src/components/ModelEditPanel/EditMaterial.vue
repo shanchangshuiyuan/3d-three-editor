@@ -173,9 +173,6 @@ const materialConfig = store.sceneConfig.material;
 let config = reactive({});
 config = materialConfig;
 
-
-
-
 const loading = ref(false);
 const activeMeshType = ref("");
 const activeMeshMap = ref(null);
