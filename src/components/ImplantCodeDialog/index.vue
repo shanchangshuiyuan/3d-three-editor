@@ -5,12 +5,12 @@
     </el-scrollbar>
     <el-row :style="{ marginTop: '10px' }">
       <el-col :span="12">
-        <el-text type="primary">容器宽度</el-text>
-        <el-input-number class="number-style" :precision="0" v-model="iframeConfig.width" />
+        <el-text type="primary">模型名称</el-text>
+        <el-input class="number-style" v-model="iframeConfig.sceneName" />
       </el-col>
       <el-col :span="12">
-        <el-text type="primary">容器高度</el-text>
-        <el-input-number class="number-style" :precision="0" v-model="iframeConfig.height" />
+        <el-text type="primary">模型ID</el-text>
+        <el-input class="number-style" v-model="iframeConfig.sceneId" />
       </el-col>
     </el-row>
     <template #footer>
@@ -28,15 +28,14 @@ import { IFRAME_PREVIEW } from "@/config/constant";
 const visible = ref(false);
 const codeString = ref(null);
 const iframeConfig = reactive({
-  width: 400,
-  height: 300
+  sceneName: "场景1",
+  sceneId: "1"
 });
 
 const codeIframe = computed(() => {
-  const codeConfig = codeString.value.replace(/"([^"\\]*(\\.[^"\\]*)*)"/g, "'$1'");
-  const src = `${IFRAME_PREVIEW}?` + "modelConfig=" + codeConfig;
-  const iframe = `<iframe  width="${iframeConfig.width}" height="${iframeConfig.height}" src="${src}" allowfullscreen></iframe>`;
-  return iframe;
+  const sceneConfig = codeString.value.replace(/"([^"\\]*(\\.[^"\\]*)*)"/g, "'$1'");
+  const config = `{"sceneName":"${iframeConfig.sceneName}","sceneId":"${iframeConfig.sceneId}","sceneConfig":${sceneConfig}}`;
+  return config;
 });
 
 const showDialog = code => {

@@ -65,7 +65,14 @@ import EditLaterStage from "./EditLaterStage.vue";
 import EditGeometry from "./EditGeometry.vue";
 import EditMoreModel from "./EditMoreModel.vue";
 import EditTags from "./EditTags.vue";
+import  data from './data.json'
+import { useMeshEditStore } from "@/store/meshEditStore";
 const { $bus } = getCurrentInstance().proxy;
+
+const store = useMeshEditStore();
+const sceneConfig = ref(null);
+sceneConfig.value = data.sceneConfig;
+store.sceneConfig = sceneConfig.value;
 
 const panelTabs = [
   {
@@ -145,7 +152,8 @@ const getPanelConfig = () => {
   };
 };
 defineExpose({
-  getPanelConfig
+  getPanelConfig,
+  sceneConfig
 });
 </script>
 <style lang="scss" scoped>

@@ -11,10 +11,9 @@ import { ref } from "vue";
 import createThreeDComponent from "@/utils/initThreeTemplate";
 import { ElMessageBox } from "element-plus";
 import data from "../../../data.json";
-console.log(data);
 const router = useRouter();
 const config = ref(null);
-config.value = data;
+config.value = data.sceneConfig;
 
 // if (local.get(MODEL_PRIVEW_CONFIG)) {
 //   config.value = local.get(MODEL_PRIVEW_CONFIG);

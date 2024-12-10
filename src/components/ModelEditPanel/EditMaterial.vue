@@ -161,13 +161,21 @@ import { ElMessage } from "element-plus";
 
 const store = useMeshEditStore();
 const { $bus } = getCurrentInstance().proxy;
-const config = reactive({
-  meshName: null,
-  color: null,
-  wireframe: false,
-  depthWrite: true,
-  opacity: 1
-});
+// const config = reactive({
+//   meshName: null,
+//   color: null,
+//   wireframe: false,
+//   depthWrite: true,
+//   opacity: 1
+// });
+
+const materialConfig = store.sceneConfig.material;
+let config = reactive({});
+config = materialConfig;
+
+
+
+
 const loading = ref(false);
 const activeMeshType = ref("");
 const activeMeshMap = ref(null);

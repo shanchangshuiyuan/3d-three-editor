@@ -9,8 +9,8 @@
         <el-space>
           <el-button type="primary" icon="Film" @click="$router.push({ path: '/modelBase' })"> 模型库 </el-button>
           <el-button type="primary" icon="Document" v-if="handleConfigBtn" @click="onSaveConfig">保存数据</el-button>
-          <el-button type="primary" icon="View" v-if="handleConfigBtn" @click="onPreview">效果预览</el-button>
-          <el-dropdown trigger="click">
+          <!-- <el-button type="primary" icon="View" v-if="handleConfigBtn" @click="onPreview">效果预览</el-button> -->
+          <!-- <el-dropdown trigger="click">
             <el-button type="primary" icon="Download"> 下载/导出<el-icon class="el-icon--right"></el-icon> </el-button>
             <template #dropdown>
               <el-dropdown-menu>
@@ -20,7 +20,7 @@
                 <el-dropdown-item @click="onExportModelFile('usdz')">导出模型(.usdz)格式</el-dropdown-item>
               </el-dropdown-menu>
             </template>
-          </el-dropdown>
+          </el-dropdown> -->
           <el-button type="primary" icon="HelpFilled" v-if="handleConfigBtn" @click="onImportantCode"> 嵌入代码 </el-button>
           <el-button type="primary" icon="FullScreen" @click="onFullScreen">
             {{ fullscreenStatus ? "取消全屏" : "全屏" }}
@@ -143,19 +143,19 @@ const onDragDrop = async e => {
   }
 };
 // 预览
-const onPreview = () => {
-  const modelConfig = editPanel.value.getPanelConfig();
-  modelConfig.camera = store.modelApi.onGetModelCamera();
-  modelConfig.fileInfo = choosePanel.value?.activeModel;
-  //判断是否是外部模型
-  if (modelConfig.fileInfo.filePath) {
-    $local.set(MODEL_PRIVEW_CONFIG, modelConfig);
-    const { href } = router.resolve({ path: "/preview" });
-    window.open(href, "_blank");
-  } else {
-    ElMessage.warning("当前模型暂不支持“效果预览”");
-  }
-};
+// const onPreview = () => {
+//   const modelConfig = editPanel.value.getPanelConfig();
+//   modelConfig.camera = store.modelApi.onGetModelCamera();
+//   modelConfig.fileInfo = choosePanel.value?.activeModel;
+//   //判断是否是外部模型
+//   if (modelConfig.fileInfo.filePath) {
+//     $local.set(MODEL_PRIVEW_CONFIG, modelConfig);
+//     const { href } = router.resolve({ path: "/preview" });
+//     window.open(href, "_blank");
+//   } else {
+//     ElMessage.warning("当前模型暂不支持“效果预览”");
+//   }
+// };
 
 const onImportantCode = () => {
   const modelConfig = editPanel.value.getPanelConfig();
@@ -184,8 +184,48 @@ const onFullScreen = () => {
 };
 
 // 保存配置
+// const onSaveConfig = () => {
+//   ElMessageBox.confirm(" 确认要更新当前模型数据至“模板库”?", "提示", {
+//     confirmButtonText: "确认",
+//     cancelButtonText: "取消",
+//     type: "success"
+//   })
+//     .then(() => {
+//       const modelConfig = editPanel.value.getPanelConfig();
+//       modelConfig.camera = store.modelApi.onGetModelCamera();
+//       modelConfig.fileInfo = choosePanel.value?.activeModel;
+//       // 判断是否是外部模型
+//       if (modelConfig.fileInfo.filePath) {
+//         const modelBaseData = $local.get(MODEL_BASE_DATA) || [];
+//         const { id } = modelConfig.fileInfo;
+//         // 更新缓存数据
+//         Object.assign(modelBaseData.filter(v => id === v.fileInfo.id)[0], modelConfig);
+//         $local.set(MODEL_BASE_DATA, modelBaseData);
+//         ElMessage.success("更新成功");
+//       } else {
+//         ElMessage.warning("当前模型暂不支持“数据保存”");
+//       }
+//     })
+//     .catch(() => {});
+// };
+
+// // 下载封面
+// const onDownloadCover = () => {
+//   store.modelApi.onDownloadSceneCover();
+// };
+// // 导出模型
+// const onExportModelFile = type => {
+//   store.modelApi.onExporterModel(type);
+// };
+
+// 全屏监听事件
+const addEventListenerFullscreen = e => {
+  const status = document.fullscreenElement || document.webkitFullscreenElement;
+  fullscreenStatus.value = !!status;
+};
+
 const onSaveConfig = () => {
-  ElMessageBox.confirm(" 确认要更新当前模型数据至“模板库”?", "提示", {
+  ElMessageBox.confirm(" 确认要更新当前模型数据至“数据库”?", "提示", {
     confirmButtonText: "确认",
     cancelButtonText: "取消",
     type: "success"
@@ -197,6 +237,7 @@ const onSaveConfig = () => {
       // 判断是否是外部模型
       if (modelConfig.fileInfo.filePath) {
         const modelBaseData = $local.get(MODEL_BASE_DATA) || [];
+        console.log(modelBaseData)
         const { id } = modelConfig.fileInfo;
         // 更新缓存数据
         Object.assign(modelBaseData.filter(v => id === v.fileInfo.id)[0], modelConfig);
@@ -205,23 +246,11 @@ const onSaveConfig = () => {
       } else {
         ElMessage.warning("当前模型暂不支持“数据保存”");
       }
+      // router.push({
+      //   path: "/screen/scene"
+      // });
     })
     .catch(() => {});
-};
-
-// 下载封面
-const onDownloadCover = () => {
-  store.modelApi.onDownloadSceneCover();
-};
-// 导出模型
-const onExportModelFile = type => {
-  store.modelApi.onExporterModel(type);
-};
-
-// 全屏监听事件
-const addEventListenerFullscreen = e => {
-  const status = document.fullscreenElement || document.webkitFullscreenElement;
-  fullscreenStatus.value = !!status;
 };
 
 onMounted(async () => {

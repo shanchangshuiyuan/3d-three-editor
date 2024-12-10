@@ -185,16 +185,39 @@ import { backgroundList, viewImageList } from "@/config/model.js";
 import { getFileType, getAssetsFile } from "@/utils/utilityFunction";
 import { ElMessage } from "element-plus";
 const store = useMeshEditStore();
-const config = reactive({
-  visible: true,
-  type: 3, //1 颜色 2 图片  3全景图
-  image: getAssetsFile("image/model-bg-3.jpg"),
-  viewImg: getAssetsFile("image/view-4.png"),
-  color: "#000",
-  blurriness: 1,
-  intensity: 1
-});
+const backgroundConfig = store.sceneConfig.background;
+// const config = reactive({
+//   visible: true,
+//   type: 3, //1 颜色 2 图片  3全景图
+//   image: getAssetsFile("image/model-bg-3.jpg"),
+//   viewImg: getAssetsFile("image/view-4.png"),
+//   color: "#000",
+//   blurriness: 1,
+//   intensity: 1
+// });
+// 数据双向绑定
+let config = reactive({});
+config = backgroundConfig;
+const initBackground = () => {
+  const { type, visible, image, viewImg } = config;
+  if (!visible) return store.modelApi.onSetSceneColor("#000");
+  switch (type) {
+    case 1:
+      store.modelApi.onSetSceneColor(config.color);
+      break;
+    case 2:
+      store.modelApi.onSetSceneImage(image);
+      break;
+    case 3:
+      store.modelApi.onSetSceneViewImage(config);
+      break;
+    default:
+      break;
+  }
+};
+initBackground();
 
+//
 const loading = ref(false);
 const activeBackgroundId = ref(3);
 const activeViewImageId = ref(3);

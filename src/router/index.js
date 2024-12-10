@@ -4,13 +4,20 @@ const routes = [
   {
     name: "EditView",
     path: "/",
+    redirect: "/edit",
     component: () => import("@/layouts/EditView.vue"),
     children: [
       {
-        path: "/",
+        path: "/edit",
         name: "modelEdit",
         meta: { keepAlive: true },
         component: () => import("@/views/modelEdit/index.vue")
+      },
+      {
+        path: "/modelBase",
+        name: "modelBase",
+        meta: { keepAlive: false },
+        component: () => import("@/views/modelBase/index.vue")
       }
     ]
   },

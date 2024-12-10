@@ -379,47 +379,51 @@ import { useMeshEditStore } from "@/store/meshEditStore";
 import { PREDEFINE_COLORS } from "@/config/constant";
 const store = useMeshEditStore();
 const { $bus } = getCurrentInstance().proxy;
-const config = reactive({
-  //光源平面
-  planeGeometry: false,
-  planeColor: "#000000",
-  planeWidth: 7,
-  planeHeight: 7,
-  //环境光
-  ambientLight: true,
-  ambientLightColor: "#fff",
-  ambientLightIntensity: 0.8,
-  //平行光
-  directionalLight: false,
-  directionalLightHelper: true,
-  directionalLightColor: "#fff",
-  directionalLightIntensity: 5,
-  directionalHorizontal: -1.26,
-  directionalVertical: -3.85,
-  directionalSistance: 2.98,
-  directionaShadow: true,
-  //点光源
-  pointLight: false,
-  pointLightHelper: true,
-  pointLightColor: "#1E90FF",
-  pointLightIntensity: 10,
-  pointHorizontal: -4.21,
-  pointVertical: -4.1,
-  pointSistance: 2.53,
-  //聚光灯
-  spotLight: false,
-  spotLightColor: "#00BABD",
-  spotLightIntensity: 900,
-  spotHorizontal: -3.49,
-  spotVertical: -4.37,
-  spotSistance: 4.09,
-  spotAngle: 0.5,
-  spotPenumbra: 1,
-  spotFocus: 1,
-  spotCastShadow: true,
-  spotLightHelper: true,
-  spotDistance: 20
-});
+// const config = reactive({
+//   //光源平面
+//   planeGeometry: false,
+//   planeColor: "#000000",
+//   planeWidth: 7,
+//   planeHeight: 7,
+//   //环境光
+//   ambientLight: true,
+//   ambientLightColor: "#fff",
+//   ambientLightIntensity: 0.8,
+//   //平行光
+//   directionalLight: false,
+//   directionalLightHelper: true,
+//   directionalLightColor: "#fff",
+//   directionalLightIntensity: 5,
+//   directionalHorizontal: -1.26,
+//   directionalVertical: -3.85,
+//   directionalSistance: 2.98,
+//   directionaShadow: true,
+//   //点光源
+//   pointLight: false,
+//   pointLightHelper: true,
+//   pointLightColor: "#1E90FF",
+//   pointLightIntensity: 10,
+//   pointHorizontal: -4.21,
+//   pointVertical: -4.1,
+//   pointSistance: 2.53,
+//   //聚光灯
+//   spotLight: false,
+//   spotLightColor: "#00BABD",
+//   spotLightIntensity: 900,
+//   spotHorizontal: -3.49,
+//   spotVertical: -4.37,
+//   spotSistance: 4.09,
+//   spotAngle: 0.5,
+//   spotPenumbra: 1,
+//   spotFocus: 1,
+//   spotCastShadow: true,
+//   spotLightHelper: true,
+//   spotDistance: 20
+// });
+
+const lightConfig = store.sceneConfig.light;
+let config = reactive({});
+config = lightConfig;
 
 const predefineColors = PREDEFINE_COLORS;
 const ambientDisabled = computed(() => {
@@ -509,6 +513,22 @@ const changePlaneGeometryColor = planeColor => {
 const onChangePlaneGeometry = () => {
   state.modelApi.onSetModelPlaneGeometry(config);
 };
+
+// -----------------------------------------------------
+// 回显
+const initLight = () => {
+  state.modelApi.onSetModelAmbientLight(config);
+  if (config.directionalLight) {
+    config.planeGeometry = true;
+    state.modelApi.onSetModelPlaneGeometry(config);
+  }
+  state.modelApi.onSetModelDirectionalLight(config);
+  state.modelApi.onSetModelPointLight(config);
+  state.modelApi.onSetModelSpotLight(config);
+};
+
+initLight();
+// ---------------------------------------------------------
 
 const initLightData = () => {
   Object.assign(config, {
